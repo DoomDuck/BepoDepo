@@ -11,16 +11,24 @@ First attempt at creating a socket server.
 """
 
 # Defining constants
+HOST = input( "Host: " )
 PORT = 8888
-HOST = ""
-MAX_CONNECTION_COUNT = 1
+ENCODING = "utf8"
+MAX_CONNECTION_COUNT = int( input( "User count: " ) )
+
+# Common functions
+def send(to, type, data = "", id = 0):
+    to.send( ( str( id ) + "|" + str( type ) + "|" + str( data ) ).encode( ENCODING ) )
+
+def recv():
+    return socket.recv( 1024 ).decode( "utf8" ).split('|')
 
 import socket
 
 # Socket creation
-print( "Creating socket ..." )
+print( "Initializating socket..." )
 my_socket = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
-
+my_socket.setblocking( False )
 
 # Error handeling
 try:
@@ -38,21 +46,16 @@ users = []
 
 # Waiting for the users to connect
 while len(users) < MAX_CONNECTION_COUNT:
-    conn,addr = my_socket.accept()
-    users.append(( conn, addr ))
-    print( "New connection: {}:{}".format( addr[0], addr[1] ) )
+    try:
+        conn,addr = my_socket.accept()
+        users.append(( conn, addr ))
+        send(conn, "connection_success", len(users))
+        print( "New connection: {}:{}".format( addr[0], addr[1] ) )
+    except socket.error as _:
+        continue
 
-go_on = True
+for (conn,_) in users:
+    send( conn, "users_connected" )
 
-my_socket.setblocking( False )
-
-while go_on:
-    for conn,addr in users:
-        data = conn.recv( 1024 )
-        msg = data.decode("utf8")
-        print( msg )
-        if msg == "QUIT":
-            go_on = False
-
-print( "Well done !!!" )
+print( "All users are connected." )
 my_socket.close()
