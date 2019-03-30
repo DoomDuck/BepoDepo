@@ -9,7 +9,13 @@ Issues :
     Proof : while running pygame.examples.eventlist.main()
     you can see that pygame looses keyboard focus on the first ctrl click
 
+global TODOs :
+> Check the freetype module ( it is supposed to propose better fonts rendering )
+    ex: Ability to render directly without creating temporary surface
+> Add sweet sweet duck in this description
+> Add a cursor and the possiblity to use the arrows
 """
+
 import pygame as pg
 
 # Colors
@@ -62,15 +68,12 @@ while go_on:
                 text += '\n'
             else :
                 text += e.unicode
-    
+
     # Drawing
     screen.fill( BG_COLOR )
 
-    # I haven't been able to find a way to render text directly on the screen surface
-    #text_surface = font.render( text, True, TEXT_COLOR )
-    #pg.Surface.blit( screen, text_surface, TEXT_POS )
-
-    font.render_to( screen, )
+    text_surface = font.render( text, True, TEXT_COLOR )
+    pg.Surface.blit( screen, text_surface, TEXT_POS )
 
     # Updating display
     clock.tick( 60 )
