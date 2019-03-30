@@ -8,6 +8,22 @@ First attempt at creating a socket server.
    \ `-' /
 ~'`~'`~'`~'`~
 
+
+# This is allmost a copy/paste form the client.py file
+Ideas :
+> Change variable names :
+    - type ( allready a thing )
+    - id ( same )
+
+> Change function names :
+    - send ( don't use that name it's very particular to sockets )
+
+> Create error function to handle errors :
+    - It could handle an error log file
+    - Use special streams for output ( ex : stderr )
+    - Have it OS dependant
+
+
 """
 
 # Defining constants
@@ -18,7 +34,7 @@ MAX_CONNECTION_COUNT = int( input( "User count: " ) )
 
 # Common functions
 def send(to, type, data = "", id = 0):
-    to.send( ( str( id ) + "|" + str( type ) + "|" + str( data ) ).encode( ENCODING ) )
+    to.send( ( f"{id}|{type}|{data}" ).encode( ENCODING ) )
 
 def recv():
     return socket.recv( 1024 ).decode( "utf8" ).split('|')
@@ -34,11 +50,11 @@ my_socket.setblocking( False )
 try:
     my_socket.bind( (HOST, PORT) )
 except socket.error as msg:
-    print("A problem occured during binding:\n{}".format( msg ))
+    print( f"A problem occured during binding:\n{msg}" )
     my_socket.close()
 
 # Listening to new connection
-print( "Waitting for {} user(s) to connect...".format( MAX_CONNECTION_COUNT ) )
+print( f"Waitting for {MAX_CONNECTION_COUNT} user(s) to connect..." )
 my_socket.listen( MAX_CONNECTION_COUNT )
 
 # User connection variables
@@ -50,7 +66,7 @@ while len(users) < MAX_CONNECTION_COUNT:
         conn,addr = my_socket.accept()
         users.append(( conn, addr ))
         send(conn, "connection_success", len(users))
-        print( "New connection: {}:{}".format( addr[0], addr[1] ) )
+        print( f"New connection: {addr[0]}:{addr[1]}" )
     except socket.error as _:
         continue
 

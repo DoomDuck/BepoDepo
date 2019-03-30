@@ -5,6 +5,23 @@
   \ .   ) )
    \ `-' /
 ~'`~'`~'`~'`~
+
+Ideas :
+> Change variable names :
+    - type ( allready a thing )
+    - id ( same )
+
+> Change function names :
+    - recv ( don't use that name it's very particular to sockets )
+
+> Create error function to handle errors :
+    - It could handle an error log file
+    - Use special streams for output ( ex : stderr )
+    - Have it OS dependant
+
+TODOs:
+> Add things to the TODOs list
+
 """
 
 # Defining constants
@@ -22,7 +39,7 @@ my_socket = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
 try:
     my_socket.connect( (HOST, PORT) )
 except socket.error as msg:
-    print("A problem occured during connection:\n{}".format( msg ))
+    print( f"A problem occured during connection:\n{msg}" )
     my_socket.close()
 
 my_socket.setblocking( False )
@@ -37,11 +54,11 @@ while id == -1:
     except socket.error as _:
         continue
 
-print( "Successfully connected to the server with id {}.".format(id) )
+print( f"Successfully connected to the server with id {id}." )
 
 # Common functions
 def send(to, type, data):
-    to.send( ( str( id ) + "|" + str( type ) + "|" + str( data ) ).encode( ENCODING ) )
+    to.send( ( f"{id}|{type}|{data}" ).encode( ENCODING ) )
 
 def recv():
     return my_socket.recv( 1024 ).decode( "utf8" ).split('|')

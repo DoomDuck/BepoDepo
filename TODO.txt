@@ -1,0 +1,11 @@
+This is a global to do file for the entire project..
+
+
+Should have done :
+
+
+Now :
+
+
+Future :
+> Create class structure

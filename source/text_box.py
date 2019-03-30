@@ -17,14 +17,17 @@ global TODOs :
 """
 
 import pygame as pg
+# freetype must be import as well
+import pygame.freetype
+
 
 # Colors
-WHITE   = ( 255, 255, 255 )
-RED     = ( 255, 0,   0   )
-GREEN   = ( 0,   255, 255 )
-BLUE    = ( 0,   0,   255 )
-BLACK   = ( 0,   0,   0   )
-# IDEA: Use the pg.Color module to use some well predefined colors
+WHITE   = pg.Color( 255, 255, 255 )
+RED     = pg.Color( 255, 0,   0   )
+GREEN   = pg.Color( 0,   255, 255 )
+BLUE    = pg.Color( 0,   0,   255 )
+BLACK   = pg.Color( 0,   0,   0   )
+# IDEA: Use the pg.color module to use some well predefined colors
 
 
 # Some constants
@@ -33,25 +36,20 @@ HEIGHT      = 640
 BG_COLOR    = WHITE
 TEXT_COLOR  = BLACK
 FONT_SIZE   = 24
-TEXT_POS    = ( 0, 0 )
+TEXT_POS    = pg.Vector2( 0, 0 )
 
 # Initialization
 pg.init()
-pg.sysfont.initsysfonts()
+pg.freetype.init()
 
 # Pygame variables
 screen = pg.display.set_mode( ( WIDTH, HEIGHT ) )
 clock = pg.time.Clock()
 
-all_fonts = pg.sysfont.get_fonts()
+# My font
+font = pg.freetype.Font( "../fonts/my-type-of-font/mytype.ttf", 32 )
 
-# Using the first available font ( for now )
-font = pg.sysfont.SysFont( all_fonts[0], FONT_SIZE )
-# IDEA: we can as well use the pg.font.Font( None, FONT_SIZE ) syntax
-# None stands for default font here
-
-
-text  = ""
+text_lines  = [""]
 go_on = True
 
 while go_on:
@@ -62,18 +60,24 @@ while go_on:
             go_on = False
         # Keypress handeling
         elif e.type == pg.KEYDOWN:
+            print( e.key, pg.K_RETURN )
             if e.key == pg.K_BACKSPACE:
-                text = text[:-1]
+                if  text_lines[-1] == "":
+                    # If no text on the line delete the line
+                    text_lines.pop()
+                text_lines[-1] = text_lines[-1][:-1]
             elif e.key == pg.K_RETURN:
-                text += '\n'
+                text_lines.append( "" )
             else :
-                text += e.unicode
-
+                text_lines[-1] += e.unicode
+            print( text_lines )
     # Drawing
     screen.fill( BG_COLOR )
+    
+    text_pos = pg.Vector2( TEXT_POS.x, TEXT_POS.y )
+    for line in text_lines:
+        text_pos.y += font.render_to( screen, ( int( text_pos.x ), int( text_pos.y ) ), line, TEXT_COLOR ).h
 
-    text_surface = font.render( text, True, TEXT_COLOR )
-    pg.Surface.blit( screen, text_surface, TEXT_POS )
 
     # Updating display
     clock.tick( 60 )
@@ -81,4 +85,5 @@ while go_on:
 
 
 # Quitting pygame
+pg.freetype.quit()
 pg.quit()
