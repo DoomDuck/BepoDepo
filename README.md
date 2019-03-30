@@ -1,6 +1,5 @@
 # BépoDépo
 BÉPOÈDLJZWÇAUIE,CTSRNMÀYX.K'QGHFÊ
 
-This is a readme file...
-
-Wow and you just read it :)
+This project is here to provide usefull to games to inhance your typing
+capabilities
