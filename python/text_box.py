@@ -70,17 +70,16 @@ while go_on:
                 text_lines.append( "" )
             else :
                 text_lines[-1] += e.unicode
-            print( text_lines )
     # Drawing
     screen.fill( BG_COLOR )
-    
+
     text_pos = pg.Vector2( TEXT_POS.x, TEXT_POS.y )
     for line in text_lines:
         text_pos.y += font.render_to( screen, ( int( text_pos.x ), int( text_pos.y ) ), line, TEXT_COLOR ).h
 
 
     # Updating display
-    clock.tick( 60 )
+    pg.time.delay( 1000 // 60 )
     pg.display.flip()
 
 
