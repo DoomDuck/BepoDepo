@@ -6,10 +6,10 @@ run: app
 	./app
 
 app: main.o
-	$(CPPC) main.o -o app $(FLAGS)
+	$(CPPC) main.o -o app $(FLAGS) -Wall
 
 main.o: main.cpp
-	$(CPPC) -c main.cpp
+	$(CPPC) -c main.cpp -Wall
 
-clear:
-	rm *.o
+clean:
+	rm *.o app
