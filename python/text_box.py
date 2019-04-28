@@ -22,11 +22,11 @@ import pygame.freetype
 
 
 # Colors
-WHITE   = pg.Color( 255, 255, 255 )
-RED     = pg.Color( 255, 0,   0   )
-GREEN   = pg.Color( 0,   255, 255 )
-BLUE    = pg.Color( 0,   0,   255 )
-BLACK   = pg.Color( 0,   0,   0   )
+WHITE	= pg.Color( 255,255,255 )
+RED		= pg.Color( 255,0,	0   )
+GREEN 	= pg.Color( 0,	255,255 )
+BLUE	= pg.Color( 0,	0,	255 )
+BLACK	= pg.Color( 0,	0,	0   )
 # IDEA: Use the pg.color module to use some well predefined colors
 
 
@@ -53,34 +53,34 @@ text_lines  = [""]
 go_on = True
 
 while go_on:
-    # Event loop
-    for e in pg.event.get():
-        # Quit event handeling ( the cross )
-        if e.type == pg.QUIT:
-            go_on = False
-        # Keypress handeling
-        elif e.type == pg.KEYDOWN:
-            print( e.key, pg.K_RETURN )
-            if e.key == pg.K_BACKSPACE:
-                if  text_lines[-1] == "":
-                    # If no text on the line delete the line
-                    text_lines.pop()
-                text_lines[-1] = text_lines[-1][:-1]
-            elif e.key == pg.K_RETURN:
-                text_lines.append( "" )
-            else :
-                text_lines[-1] += e.unicode
-    # Drawing
-    screen.fill( BG_COLOR )
+	# Event loop
+	for e in pg.event.get():
+		# Quit event handeling ( the cross )
+		if e.type == pg.QUIT:
+			go_on = False
+		# Keypress handeling
+		elif e.type == pg.KEYDOWN:
+			print( e.key, pg.K_RETURN )
+			if e.key == pg.K_BACKSPACE:
+				if  text_lines[-1] == "":
+					# If no text on the line delete the line
+					text_lines.pop()
+				text_lines[-1] = text_lines[-1][:-1]
+			elif e.key == pg.K_RETURN:
+				text_lines.append( "" )
+			else :
+				text_lines[-1] += e.unicode
+	# Drawing
+	screen.fill( BG_COLOR )
 
-    text_pos = pg.Vector2( TEXT_POS.x, TEXT_POS.y )
-    for line in text_lines:
-        text_pos.y += font.render_to( screen, ( int( text_pos.x ), int( text_pos.y ) ), line, TEXT_COLOR ).h
+	text_pos = pg.Vector2( TEXT_POS.x, TEXT_POS.y )
+	for line in text_lines:
+		text_pos.y += font.render_to( screen, ( int( text_pos.x ), int( text_pos.y ) ), line, TEXT_COLOR ).h
 
 
-    # Updating display
-    pg.time.delay( 1000 // 60 )
-    pg.display.flip()
+	# Updating display
+	pg.time.delay( 1000 // 60 )
+	pg.display.flip()
 
 
 # Quitting pygame
