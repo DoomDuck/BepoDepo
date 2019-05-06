@@ -5,7 +5,7 @@ Should have done :
 
 
 Now :
-
+> remove escape key from valid keyrange
 
 Future :
 > Create class structure

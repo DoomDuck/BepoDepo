@@ -1,3 +1,7 @@
+# My ignored files and directories
+Bin/
+Object/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
