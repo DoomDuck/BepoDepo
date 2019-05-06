@@ -1,8 +1,4 @@
 # BépoDépo
-BÉPOÈDLJZWÇAUIE,CTSRNMÀYX.K'QGHFÊ
+BépoDépo is a program that provides useful games to enhance your typing capabilities with your friends.
 
-This project is here to provide useful to games to enhance your typing
-capabilities.
-
-But as you may have noticed the project is quite empty.
-So come back latter if you want ;)
+As you may have noticed the project is still WIP. Come back later if you want! ;)
