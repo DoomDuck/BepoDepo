@@ -1,6 +1,7 @@
 # My ignored files and directories
 Bin/
 Object/
+*.swp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
