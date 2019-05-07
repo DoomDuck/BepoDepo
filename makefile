@@ -7,7 +7,7 @@ SOURCE_FOLDER = Source
 FONT_FOLDER = Font
 
 run: $(BIN_FOLDER)/app $(BIN_FOLDER)/$(FONT_FOLDER)/uwch.ttf
-	$(BIN_FOLDER)/app
+	env --chdir=$(BIN_FOLDER) ./app
 	
 $(BIN_FOLDER)/$(FONT_FOLDER):
 	mkdir $(BIN_FOLDER)/$(FONT_FOLDER)
