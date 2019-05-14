@@ -1,4 +1,4 @@
-This is a global to do file for the entire project..
+This is a global todo file for the entire project..
 
 
 Should have done :
@@ -6,6 +6,12 @@ Should have done :
 
 Now :
 > remove escape key from valid keyrange
+> redo makefileS ( Test folder : Currently in .gitignore )
+	Ideas :
+	- Use base makefile as a source
+	- Use lists
+	- Have global methods ( %o : %c )
+	- Comment
 
 Future :
 > Create class structure

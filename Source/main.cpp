@@ -2,11 +2,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-inline bool isValidKeyStroke( sf::Uint32 encoding )
-{
-	return 20 <= encoding;
-}
-
 int main()
 {
 	// Some varibles :
@@ -21,18 +16,22 @@ int main()
 	// Todo provide adequate project structure
 	sf::Font font;
 	if ( !font.loadFromFile( file_path ) )
-	return EXIT_FAILURE; // SFML has it's own error messages
+		return EXIT_FAILURE; // SFML has it's own error messages
 
 	
-	sf::String msg( "" );
+	sf::String text_to_type( L"Hello I am the message you need to write" );
 
 	sf::Text text;
-	text.setString( msg );
+	text.setString( text_to_type );
 	text.setFont( font );
 	text.setCharacterSize( 32 );
 	text.setStyle( sf::Text::Regular );
 	text.setFillColor( sf::Color::Black );
 	
+	// Typing variables
+	std::size_t index = 0;
+	int score = 0;
+
 	// Main loop
 	while ( window.isOpen() )
 	{
@@ -40,27 +39,27 @@ int main()
 		while ( window.pollEvent( event ) )
 		{
 			if ( event.type == sf::Event::Closed )
-			window.close();
+				window.close();
 			else if ( event.type == sf::Event::KeyPressed )
 			{
 				if ( event.key.code == sf::Keyboard::Key::Q && event.key.control )
-				window.close();
-				else if ( event.key.code == sf::Keyboard::Key::BackSpace )
-				{
-					static std::size_t length;
-					if ( ( length = msg.getSize() ) > 0 )
-					{
-						msg.erase( length - 1 ); // Erase last char
-						text.setString( msg );
-					}
-				}
+					window.close();
 			}
 			else if ( event.type == sf::Event::TextEntered )
 			{
-				if ( isValidKeyStroke( event.text.unicode ) )
+				if ( event.text.unicode == text_to_type[ index ] )
 				{
-					msg += event.text.unicode;
-					text.setString( msg );
+					index ++;
+					std::cout << index << std::endl;
+					score ++;
+					sf::Vector2f pos = text.findCharacterPos( index );
+					std::cout << pos.x << "," << pos.y << std::endl;
+					pos *= -1.0f;
+					text.setPosition( pos );
+				}
+				else
+				{
+					score --;
 				}
 			}
 		}

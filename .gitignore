@@ -1,4 +1,5 @@
 # My ignored files and directories
+Test/
 Bin/
 Object/
 *.swp
