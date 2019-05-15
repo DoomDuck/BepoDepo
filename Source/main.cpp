@@ -50,12 +50,10 @@ int main()
 				if ( event.text.unicode == text_to_type[ index ] )
 				{
 					index ++;
-					std::cout << index << std::endl;
 					score ++;
 					sf::Vector2f pos = text.findCharacterPos( index );
-					std::cout << pos.x << "," << pos.y << std::endl;
 					pos *= -1.0f;
-					text.setPosition( pos );
+					text.move( pos );
 				}
 				else
 				{
